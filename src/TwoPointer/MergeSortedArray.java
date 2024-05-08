@@ -127,6 +127,40 @@ public class MergeSortedArray {
         printArray(nums2);
     }
 
+    /**
+     * O(m+n) time complexity
+     * @param nums1
+     * @param m
+     * @param nums2
+     * @param n
+     */
+    static void mergeSortedArrayBestSolution(int[] nums1,int m,int[] nums2,int n){
+        int left = m - 1;
+        int right = n - 1;
+        int mi = m + n - 1;
+        //loop both pointers till any of the array ends
+        while(left >= 0 && right >= 0){
+            if(nums1[left] > nums2[right]){
+                nums1[mi] = nums1[left];
+                mi--;
+                left--;
+            }
+            else{
+                nums1[mi] = nums2[right];
+                mi--;
+                right--;
+            }
+        }
+
+        while(right >= 0){
+            nums1[mi] = nums2[right];
+            mi--;
+            right--;
+        }
+
+        System.out.println("\nPrinting result 1");
+        printArray(nums1);
+    }
     static void swapIfGreater(int[] nums1,int[] nums2,int ind1,int ind2){
        if(nums1[ind1] > nums2[ind2]){
            swap(nums1,nums2,ind1,ind2);
@@ -143,11 +177,25 @@ public class MergeSortedArray {
         }
     }
     public static void main(String[] args){
-        int[] nums1 = {1,2,3};
-        int[] nums2 = {1,2,3};
+        //int[] nums1 = {1,2,3};
+        //int[] nums2 = {1,2,3};
+        int m=3;
+        int n=3;
+
+        int[] nums1 = new int[m+n];
+        int[] nums2 = new int[n];
+        nums1[0] = 3;
+        nums1[1] = 4;
+        nums1[2] = 10;
+
+        nums2[0] = 2;
+        nums2[1] = 5;
+        nums2[2] = 19;
+
+
         //mergeSortedArrayWithExtraSpace(nums1,nums1.length,nums2,nums2.length);
         //mergeSortedArrayWithoutExtraSpace(nums1,nums1.length,nums2,nums2.length);
-        mergeSortedArrayWithoutExtraSpaceGapMethod(nums1,nums1.length,nums2,nums2.length);
-
+        //mergeSortedArrayWithoutExtraSpaceGapMethod(nums1,nums1.length,nums2,nums2.length);
+        mergeSortedArrayBestSolution(nums1,m,nums2,n);
     }
 }
